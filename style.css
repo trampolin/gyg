@@ -21,36 +21,58 @@ body {
 }
 
 #everything {
-	/*border-left: 1px solid black;
-	border-right: 1px solid black;*/
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	background-color: #FFF;
 }
 
 #header {
 	background-image: url("images/guitar.png");
-	height: 128px;;
-	/*width: 128px;px;*/
+	height: 128px;
 	background-repeat: no-repeat;
 	background-position: center;
-	/*border-left: 1px solid black;
-	border-right: 1px solid black;*/
-	border: 1px solid black;
+	border: 1px solid #ccc;
 }
 
 #navigation {
 	min-height: 64px;
-	border: 1px solid black;
+	border: 1px solid #ccc;
+	overflow: hidden;
+	display: table;
+}
+
+.navigationitem {
+	width: 138px;
+	height: 48Px;
+	border: 1px solid #ccc;
+	float: left;
+	margin: 10px;
+}
+
+.navigationitem:hover {
+	background-color: #eee;
 }
 
 #content {
 	min-height: 500px;
-	/*border-left: 1px solid black;
-	border-right: 1px solid black;*/
-	border: 1px solid black;
+	border: 1px solid #ccc;
 }
+
+#login {
+	text-align: center;
+}
+
+.contentitem {
+	width: 940px;
+	min-height: 64Px;
+	border: 1px solid #ccc;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
 
 #footer {
 	min-height: 64px;
-	border: 1px solid black;
+	border: 1px solid #ccc;
 }
