@@ -21,7 +21,7 @@
 <title>Get Your Gig</title>
 <script src="scripts/jquery-2.1.0.js" type="text/javascript"></script> 
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
-<!--script src="scripts/functions.js" type="text/javascript"></script--> 
+<script src="scripts/controller.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id="everything" class="round fullwidth">

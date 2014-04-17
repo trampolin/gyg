@@ -37,7 +37,7 @@ body {
 	min-height: 64px;
 	border: 1px solid #ccc;
 	overflow: hidden;
-	display: table;
+	/*display: table;*/
 }
 
 .navigationitem {
