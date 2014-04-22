@@ -68,6 +68,11 @@ body {
 	margin: auto;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	background-color: #eeffff;
+}
+
+.contentitem:hover {
+	border: 1px solid red;
 }
 
 .errormessage {

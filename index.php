@@ -31,6 +31,7 @@
 				<div id="navigation" class="round innerfull">
 					<div class=" round navigationitem" id="navigetbands" onClick="requestBandList('content','round contentitem')">Bands</div>
 					<div class=" round navigationitem" id="navigetvenues" onClick="requestVenueList('content','round contentitem')">Venues</div>
+					<div class=" round navigationitem" id="navigetgigs" onClick="requestGigList('content','round contentitem',true)">Gigs</div>
 				</div>
 		<?php } ?>
 		<div id="content" class="round innerfull">
