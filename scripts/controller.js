@@ -1,14 +1,18 @@
-function doServerRequest(aData,aSuccessCallback,aErrorCallback) {
-	var val = $.toJSON(aData);
+function requestInterface(aInterface,aFunction,aData,aSuccess,aFail) {
+	var params = {					
+					intf: aInterface,
+					func: aFunction,
+					data: aData};
+	
 	$.ajax(
 		{
 			url: "./classes/requesthandler/requesthandler.php",
-			data: val,
+			data: JSON.stringify(params),
 			dataType : "json",
 			contentType: 'application/json; charset=UTF-8',
 			type: "POST",
-			success: aSuccessCallback,
-			error: aErrorCallback
+			success: aSuccess,
+			error: aFail
 		}
 	)
 }

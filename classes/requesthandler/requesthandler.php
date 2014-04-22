@@ -2,34 +2,41 @@
 
 define("ROOT_DIR", "../..");
 
-$allowedCalls = array();
+require_once("responseTypes.php");
+require_once(ROOT_DIR."/classes/interfaces/basicInterface.php");
 
 function handleRequest() {
-	$_WHERE = $_GET;
-	
-	$data = isset($_WHERE['data']) ? $_WHERE['data'] : "test";
-	
-	//$postdata = file_get_contents("php://input");
-	
-	//echo $data;
-	echo json_decode($postdata);
-	
-	/*if ($data != null) {
-		try {
-			/*foreach($data as $key => $val) {
-				echo $key." ".$val."\n";
-			}*/
-			//$obj = json_decode($data);
-		/*}
-		catch (Exception $e) {
-			return "Fehler beim dekodieren von ".$data; 
+	$request_body = file_get_contents('php://input');
+	$decoded = json_decode($request_body);
+
+	if (array_key_exists($decoded->intf,BasicInterface::$allowedCalls)) 
+	{
+		if (array_key_exists($decoded->func,BasicInterface::$allowedCalls[$decoded->intf])) 
+		{
+			if (BasicInterface::$allowedCalls[$decoded->intf][$decoded->func]) 
+			{
+				$interface = new $decoded->intf();
+				return $interface->{$decoded->func}($decoded->data);
+			}
+			else 
+			{
+				return new ErrorDataResponse("Funktion ".$decoded->func." in Interface ".$decoded->intf." ist nicht erlaubt",$decoded->data);
+			}
 		}
-	}*/
+		else 
+		{
+			return new ErrorDataResponse("Funktion ".$decoded->func." existiert nicht in Interface ".$decoded->intf,$decoded->data);
+		}
+	}
+	else
+	{
+		return new ErrorDataResponse("Interface ".$decoded->intf." existiert nicht",$decoded->data);
+	}
 	
-	
-	//return json_encode($data);
+	return new ErrorDataResponse("Unbekannter Fehler",$decoded);
 }
 
-echo handleRequest();
+$response = handleRequest();
+echo $response->toJson();
 
 ?>
