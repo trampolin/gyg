@@ -17,12 +17,12 @@
 if (isset($login)) {
 	if ($login->errors) {
 			foreach ($login->errors as $error) {
-					echo "<div class='round contentitem'>".$error."</div>";
+					echo "<div class='round contentitem errormessage'>".$error."</div>";
 			}
 	}
 	if ($login->messages) {
 			foreach ($login->messages as $message) {
-					echo "<div class='round contentitem'>".$message."</div>";
+					echo "<div class='round contentitem successmessage'>".$message."</div>";
 			}
 	}
 }

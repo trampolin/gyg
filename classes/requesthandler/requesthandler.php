@@ -6,6 +6,7 @@ require_once("responseTypes.php");
 require_once(ROOT_DIR."/classes/database.php");
 require_once(ROOT_DIR."/classes/interfaces/basicInterface.php");
 require_once(ROOT_DIR."/classes/interfaces/bandInterface.php");
+require_once(ROOT_DIR."/classes/interfaces/venueInterface.php");
 
 function handleRequest() {
 	$request_body = file_get_contents('php://input');

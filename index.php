@@ -29,18 +29,14 @@
 		<?php 
 			if ($login->isUserLoggedIn() == true) { ?>
 				<div id="navigation" class="round innerfull">
-					<div class=" round navigationitem"></div>
-					<div class=" round navigationitem"></div>
-					<div class=" round navigationitem"></div>
-					<div class=" round navigationitem"></div>
-					<div class=" round navigationitem"></div>
-					<div class=" round navigationitem"></div>
+					<div class=" round navigationitem" id="navigetbands" onClick="requestBandList('content','round contentitem')">Bands</div>
+					<div class=" round navigationitem" id="navigetvenues" onClick="requestVenueList('content','round contentitem')">Venues</div>
 				</div>
 		<?php } ?>
 		<div id="content" class="round innerfull">
 			<?php		
 				if ($login->isUserLoggedIn() == true) {
-						echo "<div class='round contentitem'>logged in</div>";
+						echo "<div class='round contentitem successmessage'>logged in</div>";
 
 				} else {
 						include("views/login.php");

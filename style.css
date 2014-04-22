@@ -70,7 +70,17 @@ body {
 	margin-bottom: 10px;
 }
 
+.errormessage {
+	background-color: #ffcccc;
+}
 
+.successmessage {
+	background-color: #ccffcc;
+}
+
+.warningmessage {
+	background-color: #ffd8cc;
+}
 
 #footer {
 	min-height: 64px;
