@@ -12,18 +12,20 @@
 	</form>
 
 </div>
+<script type="text/javascript">
 <?php	
 		
 if (isset($login)) {
 	if ($login->errors) {
-			foreach ($login->errors as $error) {
-					echo "<div class='round contentitem errormessage'>".$error."</div>";
-			}
+			foreach ($login->errors as $error) { ?>
+				showNotification(<?php echo '"'.$error.'"' ?>,'bad');
+			<?php }
 	}
 	if ($login->messages) {
-			foreach ($login->messages as $message) {
-					echo "<div class='round contentitem successmessage'>".$message."</div>";
-			}
+			foreach ($login->messages as $message) { ?>
+				showNotification(<?php echo '"'.$message.'"' ?>,'good');
+			<?php }
 	}
 }
 ?>
+</script>

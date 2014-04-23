@@ -91,3 +91,26 @@ body {
 	min-height: 64px;
 	border: 1px solid #ccc;
 }
+
+#throbber {
+	width: 64px;
+	height: 64px;
+}
+
+#loading {
+	display: none;
+	width: 64px;
+	height: 64px;
+	z-index: 10011;
+	background-image: url("images/throbber.png");
+}
+
+div.jGrowl div.good {
+	background-color: 		#ccffcc;
+	color: 							navy;
+}
+
+div.jGrowl div.bad {
+	background-color: 		#FFcccc;
+	color: 							navy;
+}

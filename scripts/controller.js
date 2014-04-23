@@ -1,8 +1,16 @@
 function requestInterface(aInterface,aFunction,aData,aSuccess,aFail) {
+	var requestInterfaceFail = function(xhr,status,error) {
+		showNotification(xhr.responseText,'bad');
+	};
+
 	var params = {					
 					intf: aInterface,
 					func: aFunction,
 					data: (aData == undefined ? null : aData)};
+	
+	if (aFail==undefined) {
+		aFail = requestInterfaceFail;
+	};
 	
 	$.ajax(
 		{
@@ -11,18 +19,31 @@ function requestInterface(aInterface,aFunction,aData,aSuccess,aFail) {
 			dataType : "json",
 			contentType: 'application/json; charset=UTF-8',
 			type: "POST",
+			beforeSend: function() { $.blockUI(
+															{ 
+																css: 
+																{ 
+																	border: 'none', 
+																	padding: '15px', 
+																	backgroundColor: '#000', 
+																	'-webkit-border-radius': '10px', 
+																	'-moz-border-radius': '10px',
+																	'border-radius': '10px',
+																	opacity: .5, 
+																	color: '#fff' 
+																}, 
+																overlayCSS: 
+																{ 
+																	backgroundColor: '#888' 
+																},
+																message: null //$('#loading')
+															});
+															setTimeout("$('#throbber').attr('src', 'images/throbber.png');",100);	},
+			complete: function() { $.unblockUI(); },
 			success: aSuccess,
 			error: aFail
 		}
 	)
-}
-
-function checkResult(response) {
-	return (response != undefined) && (response.result != undefined) && (response.result == "ok");
-}
-
-function writeErrorMessage(aRootItemId, aItemClass, message) {
-	$("#"+aRootItemId).html("<div class='"+aItemClass+" errormessage'>"+message+"</div>\n");
 }
 
 function requestBandList(aRootItemId, aItemClass) {
@@ -38,10 +59,9 @@ function requestBandList(aRootItemId, aItemClass) {
 		}
 		else
 		{
-			writeErrorMessage(aRootItemId, aItemClass, response.message);
+			showNotification(response.message,'bad');
 		}
 	};
-	
 	requestInterface("BandInterface","getBands",undefined,requestBandListCallback,undefined);
 }
 
@@ -60,16 +80,13 @@ function requestVenueList(aRootItemId, aItemClass) {
 		}
 		else
 		{
-			writeErrorMessage(aRootItemId, aItemClass, response.message);
+			showNotification(response.message,'bad');
 		}		
 	};
-	
 	requestInterface("VenueInterface","getVenues",undefined,requestVenueListCallback,undefined);
 }
 
-
 function requestGigList(aRootItemId, aItemClass, aGetVenues) {
-
 	var requestGigListCallback = function(response) {
 		if (checkResult(response)) 
 		{
@@ -90,9 +107,8 @@ function requestGigList(aRootItemId, aItemClass, aGetVenues) {
 		}
 		else
 		{
-			writeErrorMessage(aRootItemId, aItemClass, response.message);
+			showNotification(response.message,'bad');
 		}		
 	};
-	
 	requestInterface("GigInterface","getGigs",{getVenues: aGetVenues},requestGigListCallback,undefined);
 }
