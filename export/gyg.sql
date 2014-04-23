@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 22. Apr 2014 um 14:29
+-- Erstellungszeit: 23. Apr 2014 um 16:10
 -- Server Version: 5.5.34
 -- PHP-Version: 5.4.22
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `bandcontacts`
 --
 
+DROP TABLE IF EXISTS `bandcontacts`;
 CREATE TABLE IF NOT EXISTS `bandcontacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bandid` int(11) NOT NULL,
@@ -42,11 +43,6 @@ CREATE TABLE IF NOT EXISTS `bandcontacts` (
 --
 
 --
--- TRUNCATE Tabelle vor dem Einfügen `bandcontacts`
---
-
-TRUNCATE TABLE `bandcontacts`;
---
 -- Daten für Tabelle `bandcontacts`
 --
 
@@ -59,12 +55,12 @@ INSERT INTO `bandcontacts` (`id`, `bandid`, `personid`) VALUES
 -- Tabellenstruktur für Tabelle `bandgigs`
 --
 
+DROP TABLE IF EXISTS `bandgigs`;
 CREATE TABLE IF NOT EXISTS `bandgigs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `bandid` int(11) NOT NULL,
   `gigid` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`bandid`,`gigid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONEN DER TABELLE `bandgigs`:
@@ -75,16 +71,18 @@ CREATE TABLE IF NOT EXISTS `bandgigs` (
 --
 
 --
--- TRUNCATE Tabelle vor dem Einfügen `bandgigs`
---
-
-TRUNCATE TABLE `bandgigs`;
---
 -- Daten für Tabelle `bandgigs`
 --
 
-INSERT INTO `bandgigs` (`id`, `bandid`, `gigid`) VALUES
-(1, 1, 1);
+INSERT INTO `bandgigs` (`bandid`, `gigid`) VALUES
+(1, 1),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2),
+(4, 2),
+(5, 3),
+(6, 3);
 
 -- --------------------------------------------------------
 
@@ -92,24 +90,25 @@ INSERT INTO `bandgigs` (`id`, `bandid`, `gigid`) VALUES
 -- Tabellenstruktur für Tabelle `bands`
 --
 
+DROP TABLE IF EXISTS `bands`;
 CREATE TABLE IF NOT EXISTS `bands` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
---
--- TRUNCATE Tabelle vor dem Einfügen `bands`
---
-
-TRUNCATE TABLE `bands`;
 --
 -- Daten für Tabelle `bands`
 --
 
 INSERT INTO `bands` (`id`, `name`, `description`) VALUES
-(1, 'steen', NULL);
+(1, 'steen', NULL),
+(2, 'Rammstein', 'blaaaaa'),
+(3, 'Sum 41', NULL),
+(4, 'System of a Down', 'AWESOME!!!!'),
+(5, 'Rogers', NULL),
+(6, 'Broilers', NULL);
 
 -- --------------------------------------------------------
 
@@ -117,12 +116,17 @@ INSERT INTO `bands` (`id`, `name`, `description`) VALUES
 -- Tabellenstruktur für Tabelle `gigs`
 --
 
+DROP TABLE IF EXISTS `gigs`;
 CREATE TABLE IF NOT EXISTS `gigs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `gigdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gigdate` date NOT NULL,
+  `getin` time DEFAULT NULL,
+  `doors` time DEFAULT NULL,
+  `begin` time NOT NULL DEFAULT '20:00:00',
   `venueid` int(11) NOT NULL,
+  `slots` int(11) NOT NULL DEFAULT '3',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- RELATIONEN DER TABELLE `gigs`:
@@ -131,16 +135,13 @@ CREATE TABLE IF NOT EXISTS `gigs` (
 --
 
 --
--- TRUNCATE Tabelle vor dem Einfügen `gigs`
---
-
-TRUNCATE TABLE `gigs`;
---
 -- Daten für Tabelle `gigs`
 --
 
-INSERT INTO `gigs` (`id`, `gigdate`, `venueid`) VALUES
-(1, '2014-10-22 18:00:00', 1);
+INSERT INTO `gigs` (`id`, `gigdate`, `getin`, `doors`, `begin`, `venueid`, `slots`) VALUES
+(1, '2014-10-22', NULL, NULL, '20:00:00', 1, 6),
+(2, '2014-04-18', NULL, NULL, '20:00:00', 2, 3),
+(3, '2014-06-05', '16:00:00', '19:00:00', '20:00:00', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -148,6 +149,7 @@ INSERT INTO `gigs` (`id`, `gigdate`, `venueid`) VALUES
 -- Tabellenstruktur für Tabelle `persons`
 --
 
+DROP TABLE IF EXISTS `persons`;
 CREATE TABLE IF NOT EXISTS `persons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(50) NOT NULL,
@@ -157,11 +159,6 @@ CREATE TABLE IF NOT EXISTS `persons` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
---
--- TRUNCATE Tabelle vor dem Einfügen `persons`
---
-
-TRUNCATE TABLE `persons`;
 --
 -- Daten für Tabelle `persons`
 --
@@ -176,6 +173,7 @@ INSERT INTO `persons` (`id`, `firstname`, `lastname`, `email`, `tel`) VALUES
 -- Tabellenstruktur für Tabelle `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto incrementing user_id of each user, unique index',
   `user_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s name, unique',
@@ -186,11 +184,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `user_email` (`user_email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='user data' AUTO_INCREMENT=3 ;
 
---
--- TRUNCATE Tabelle vor dem Einfügen `users`
---
-
-TRUNCATE TABLE `users`;
 --
 -- Daten für Tabelle `users`
 --
@@ -204,6 +197,7 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_password_hash`, `user_email`)
 -- Tabellenstruktur für Tabelle `venuecontacts`
 --
 
+DROP TABLE IF EXISTS `venuecontacts`;
 CREATE TABLE IF NOT EXISTS `venuecontacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `venueid` int(11) NOT NULL,
@@ -220,11 +214,6 @@ CREATE TABLE IF NOT EXISTS `venuecontacts` (
 --
 
 --
--- TRUNCATE Tabelle vor dem Einfügen `venuecontacts`
---
-
-TRUNCATE TABLE `venuecontacts`;
---
 -- Daten für Tabelle `venuecontacts`
 --
 
@@ -237,6 +226,7 @@ INSERT INTO `venuecontacts` (`id`, `venueid`, `personid`) VALUES
 -- Tabellenstruktur für Tabelle `venues`
 --
 
+DROP TABLE IF EXISTS `venues`;
 CREATE TABLE IF NOT EXISTS `venues` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -246,19 +236,16 @@ CREATE TABLE IF NOT EXISTS `venues` (
   `city` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
---
--- TRUNCATE Tabelle vor dem Einfügen `venues`
---
-
-TRUNCATE TABLE `venues`;
 --
 -- Daten für Tabelle `venues`
 --
 
 INSERT INTO `venues` (`id`, `name`, `street`, `number`, `zip`, `city`) VALUES
-(1, 'Area 51', 'Furtwäglerstr.', '2b', '40724', 'Hilden');
+(1, 'Area 51', 'Furtwäglerstr.', '2b', '40724', 'Hilden'),
+(2, 'LTU Arena', 'LTU Arena Street', '1', '44444', 'Düsseldorf'),
+(3, 'Club1', 'bla', 'bla', 'bla', 'bla');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

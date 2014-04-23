@@ -29,7 +29,11 @@ class GigInterface extends BasicInterface {
 				$gig = new Gig();		
 				$gig->id = $row['id'];
 				$gig->gigdate = $row['gigdate'];
+				$gig->getin = $row['getin'];
+				$gig->doors = $row['doors'];
+				$gig->begin = $row['begin'];
 				$gig->venueid = $row['venueid'];
+				$gig->slots = $row['slots'];
 				if ($params->getVenues) 
 				{
 					$gig->venue = new Venue();

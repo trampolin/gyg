@@ -115,12 +115,7 @@ function requestGigList(aRootItemId, aItemClass, aGetVenues, aGetBands) {
 			var innerHTML = "";
 			for (var gig in response.data)
 			{
-				innerHTML = getGigHeaderHTML(aRootItemId, aItemClass,response.data[gig]);
-				for (var band in response.data[gig].bands)
-				{
-					innerHTML = innerHTML+getBandInGigHTML(response.data[gig].bands[band]);
-				}
-				innerHTML = innerHTML+"</div>\n";
+				innerHTML = innerHTML+getGigHTML(aRootItemId, aItemClass,response.data[gig]);
 			}
 		
 			$("#"+aRootItemId).html(innerHTML);

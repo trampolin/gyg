@@ -75,10 +75,6 @@ body {
 	text-align: center;
 }
 
-.contentitem:hover {
-	/*border: 1px solid red;*/
-}
-
 .contentitemitem {
 	width: 138px;
 	border: 1px solid #ccc;
@@ -86,6 +82,15 @@ body {
 	line-height: 48px;
 	float: left;
 	margin: 10px;
+	background-color: #f8fff8;
+}
+
+.contentitem .contentitemitem {
+	width: 134px;
+}
+
+.contentitemitem :hover  {
+	background-color: #eee;
 }
 
 .contentitemheader{
@@ -128,7 +133,6 @@ body {
 	display: none;
 	width: 64px;
 	height: 64px;
-	z-index: 10011;
 	background-image: url("images/throbber.png");
 }
 
