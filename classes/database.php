@@ -3,9 +3,9 @@
 require_once(ROOT_DIR."/config/db.php");
 
 class DatabaseConnection {
-	var $dblink;
-	var $result;
-	var $num_rows;
+	private $dblink;
+	private $result;
+	private $num_rows;
 	
 	function __construct() {
 			$this->dblink = mysql_connect(DB_HOST, DB_USER, DB_PASS);
@@ -32,9 +32,9 @@ class DatabaseConnection {
 		return $this->num_rows;
 	}
 	
-	function __destruct() {
+	/*function __destruct() {
 		mysql_close($this->dblink);
-	}
+	}*/
 	
 }
 

@@ -8,19 +8,18 @@ class GigInterface extends BasicInterface {
 		parent::__construct($db);
 	}
 	
-	public function getGigs($getVenues)
+	public function getGigs($params)
 	{
 		$content = array();
-		
-		if ($getVenues) 
+		$join = " ";
+		if ($params->getVenues) 
 		{
 			$join = " JOIN venues v ON venueid=v.id ";
 		}
-		else
+		if ($params->getBands)
 		{
-			$join = " ";
+			$bi = new BandInterface();
 		}
-		
 		$q = "SELECT * FROM gigs".$join."ORDER BY gigdate ASC";
 		$result = $this->db->query($q);
 		if ($this->db->get_last_num_rows() > 0) 
@@ -31,7 +30,7 @@ class GigInterface extends BasicInterface {
 				$gig->id = $row['id'];
 				$gig->gigdate = $row['gigdate'];
 				$gig->venueid = $row['venueid'];
-				if ($getVenues) 
+				if ($params->getVenues) 
 				{
 					$gig->venue = new Venue();
 					$gig->venue->id = $row['id'];
@@ -45,6 +44,17 @@ class GigInterface extends BasicInterface {
 				{
 					$gig->venue = null;
 				}
+				$gig->bands = array();
+				
+				if ($params->getBands)
+				{
+					$bands = $bi->getBandsFromGig($gig->id);
+					foreach ($bands->data as $band)
+					{
+						$gig->bands[] = $band;
+					}
+				}
+				
 				$content[] = $gig;				
 			}
 		}

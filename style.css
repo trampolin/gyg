@@ -37,12 +37,14 @@ body {
 	min-height: 64px;
 	border: 1px solid #ccc;
 	overflow: hidden;
+	text-align: center;
 	/*display: table;*/
 }
 
 .navigationitem {
 	width: 138px;
 	height: 48Px;
+	line-height: 48px;
 	border: 1px solid #ccc;
 	float: left;
 	margin: 10px;
@@ -68,11 +70,30 @@ body {
 	margin: auto;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	background-color: #eeffff;
+	background-color: #eeffee;
+	overflow: hidden;
+	text-align: center;
 }
 
 .contentitem:hover {
-	border: 1px solid red;
+	/*border: 1px solid red;*/
+}
+
+.contentitemitem {
+	width: 138px;
+	border: 1px solid #ccc;
+	height: 48Px;
+	line-height: 48px;
+	float: left;
+	margin: 10px;
+}
+
+.contentitemheader{
+	height: 48Px;
+	line-height: 48px;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .errormessage {
@@ -85,6 +106,12 @@ body {
 
 .warningmessage {
 	background-color: #ffd8cc;
+}
+
+.bigfont {
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 #footer {

@@ -5,6 +5,7 @@ class Gig {
 	public $gigdate;
 	public $venueid;
 	public $venue;
+	public $bands;
 }
 
 ?>

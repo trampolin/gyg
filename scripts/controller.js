@@ -53,7 +53,9 @@ function requestBandList(aRootItemId, aItemClass) {
 			var innerHTML = "";
 			for (var band in response.data)
 			{
-				innerHTML = innerHTML+"<div class='"+aItemClass+"'>"+response.data[band].name+"</div>\n";
+				clickText = 'requestBand(\"band-'+response.data[band].id+'\",\"\",'+response.data[band].id+')';
+				innerHTML = innerHTML+"<div class='"+aItemClass+"' id='band-"+response.data[band].id+"' onClick='"+clickText+"'><div class='bigfont round contentitemheader'>"+response.data[band].name+"</div></div>\n";
+				//$('#band-'+response.data[band].id).click(function() { requestBand('#band-'+response.data[band].id,'',response.data[band].id); });
 			}
 			$("#"+aRootItemId).html(innerHTML);
 		}
@@ -65,6 +67,26 @@ function requestBandList(aRootItemId, aItemClass) {
 	requestInterface("BandInterface","getBands",undefined,requestBandListCallback,undefined);
 }
 
+function requestBand(aRootItemId, aItemClass, aBandId) {
+	var requestBandListCallback = function(response) {
+		if (checkResult(response)) 
+		{
+			var innerHTML = "";
+			for (var band in response.data)
+			{
+				//innerHTML = innerHTML+"<div class='"+aItemClass+"'>"+response.data[band].name+"</div>\n";
+				innerHTML = "<div class='bigfont round contentitemheader'>"+response.data[band].name+' success'+"</div>";
+			}
+			$("#"+aRootItemId).html(innerHTML);
+		}
+		else
+		{
+			showNotification(response.message,'bad');
+		}
+	};
+	requestInterface("BandInterface","getBand",aBandId,requestBandListCallback,undefined);
+}
+
 function requestVenueList(aRootItemId, aItemClass) {
 
 	var requestVenueListCallback = function(response) {
@@ -73,7 +95,7 @@ function requestVenueList(aRootItemId, aItemClass) {
 			var innerHTML = "";
 			for (var venue in response.data)
 			{
-				innerHTML = innerHTML+"<div class='"+aItemClass+"'>"+response.data[venue].name+"</div>\n";
+				innerHTML = innerHTML+"<div class='"+aItemClass+"'><div class='bigfont round contentitemheader'>"+response.data[venue].name+"</div></div>\n";
 			}
 		
 			$("#"+aRootItemId).html(innerHTML);
@@ -86,20 +108,18 @@ function requestVenueList(aRootItemId, aItemClass) {
 	requestInterface("VenueInterface","getVenues",undefined,requestVenueListCallback,undefined);
 }
 
-function requestGigList(aRootItemId, aItemClass, aGetVenues) {
+function requestGigList(aRootItemId, aItemClass, aGetVenues, aGetBands) {
 	var requestGigListCallback = function(response) {
 		if (checkResult(response)) 
 		{
 			var innerHTML = "";
 			for (var gig in response.data)
 			{
-				innerHTML = innerHTML+"<div class='"+aItemClass+"'>"+response.data[gig].gigdate;
-				
-				if (response.data[gig].venue != null)
+				innerHTML = getGigHeaderHTML(aRootItemId, aItemClass,response.data[gig]);
+				for (var band in response.data[gig].bands)
 				{
-					innerHTML = innerHTML+" "+response.data[gig].venue.name;
+					innerHTML = innerHTML+getBandInGigHTML(response.data[gig].bands[band]);
 				}
-				
 				innerHTML = innerHTML+"</div>\n";
 			}
 		
@@ -110,5 +130,25 @@ function requestGigList(aRootItemId, aItemClass, aGetVenues) {
 			showNotification(response.message,'bad');
 		}		
 	};
-	requestInterface("GigInterface","getGigs",{getVenues: aGetVenues},requestGigListCallback,undefined);
+	requestInterface("GigInterface","getGigs",{getVenues: aGetVenues, getBands: aGetBands},requestGigListCallback,undefined);
+}
+
+function requestGigDetails(aRootItemId, aItemClass, aId) {
+	var requestGigListCallback = function(response) {
+		if (checkResult(response)) 
+		{
+			var innerHTML = "";
+			for (var gig in response.data)
+			{
+				innerHTML = "details"
+			}
+		
+			$("#"+aRootItemId).html(innerHTML);
+		}
+		else
+		{
+			showNotification(response.message,'bad');
+		}		
+	};
+	requestInterface("GigInterface","getGigDetails",aId,requestGigListCallback,undefined);
 }
