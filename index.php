@@ -33,12 +33,12 @@
 		<?php 
 			if ($login->isUserLoggedIn() == true) { ?>
 				<div id="navigation" class="round innerfull bigfont">
-					<div class="round navigationitem" id="navigetbands" onClick="requestBandList('content','round contentitem')">Bands</div>
-					<div class="round navigationitem" id="navigetvenues" onClick="requestVenueList('content','round contentitem')">Venues</div>
-					<div class="round navigationitem" id="navigetgigs" onClick="requestGigList('content','round contentitem',true,true)">Gigs</div>
+					<div class="navigationitem round" id="navigetbands" onClick="requestBandList('content','contentitem round')">Bands</div>
+					<div class="navigationitem round" id="navigetvenues" onClick="requestVenueList('content','contentitem round')">Venues</div>
+					<div class="navigationitem round" id="navigetgigs" onClick="requestGigList('content','contentitem round',true,true)">Gigs</div>
 				</div>
 		<?php } ?>
-		<div id="content" class="round innerfull">
+		<div id="content" class="innerfull round">
 			<?php		
 				if ($login->isUserLoggedIn() == true) { ?>
 						<script type="text/javascript">showNotification('Logged in','good');</script>

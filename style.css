@@ -83,14 +83,15 @@ body {
 	float: left;
 	margin: 10px;
 	background-color: #f8fff8;
+	display: block;
 }
 
-.contentitem .contentitemitem {
+.contentitem  .contentitemitem {
 	width: 134px;
 }
 
-.contentitemitem :hover  {
-	background-color: #eee;
+.contentitemitem:hover{
+	background-color: #f8f8ff;
 }
 
 .contentitemheader{
@@ -99,6 +100,17 @@ body {
 	margin: auto;
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.contentsectionheader{
+	border-bottom: 1px solid #ccc;
+	width: 100%;
+	text-align: left;
+	padding-left: 25px;
+}
+
+.contentsection{
+	overflow: hidden;
 }
 
 .errormessage {
