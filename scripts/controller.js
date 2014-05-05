@@ -50,14 +50,15 @@ function requestBandList(aRootItemId, aItemClass) {
 	var requestBandListCallback = function(response) {
 		if (checkResult(response)) 
 		{
-			var innerHTML = "";
+			$("#"+aRootItemId).html("");
 			for (var band in response.data)
 			{
-				clickText = 'requestBand(\"band-'+response.data[band].id+'\",\"\",'+response.data[band].id+')';
-				innerHTML = innerHTML+"<div class='"+aItemClass+"' id='band-"+response.data[band].id+"' onClick='"+clickText+"'><div class='bigfont round contentitemheader'>"+response.data[band].name+"</div></div>\n";
+				//clickText = 'requestBand(\"content\",\"\",'+response.data[band].id+')';
+				//innerHTML = innerHTML+"<div class='"+aItemClass+"' id='band-"+response.data[band].id+"' onClick='"+clickText+"'><div class='bigfont round contentitemheader'>"+response.data[band].name+"</div></div>\n";
 				//$('#band-'+response.data[band].id).click(function() { requestBand('#band-'+response.data[band].id,'',response.data[band].id); });
+				$("#"+aRootItemId).append(createBand("round contentitem",response.data[band]));
 			}
-			$("#"+aRootItemId).html(innerHTML);
+			//$("#"+aRootItemId).html(innerHTML);
 		}
 		else
 		{
@@ -75,7 +76,7 @@ function requestBand(aRootItemId, aItemClass, aBandId) {
 			for (var band in response.data)
 			{
 				//innerHTML = innerHTML+"<div class='"+aItemClass+"'>"+response.data[band].name+"</div>\n";
-				innerHTML = "<div class='bigfont round contentitemheader'>"+response.data[band].name+' success'+"</div>";
+				innerHTML = "<div class='"+aItemClass+"'>"+response.data[band].name+' success'+"</div>";
 			}
 			$("#"+aRootItemId).html(innerHTML);
 		}
@@ -87,45 +88,42 @@ function requestBand(aRootItemId, aItemClass, aBandId) {
 	requestInterface("BandInterface","getBand",aBandId,requestBandListCallback,undefined);
 }
 
-function requestVenueList(aRootItemId, aItemClass) {
+function requestVenueList(aRootItemId, aItemClass, aVenueId) {
 
 	var requestVenueListCallback = function(response) {
 		if (checkResult(response)) 
 		{
 			var innerHTML = "";
+			$("#"+aRootItemId).html("");
 			for (var venue in response.data)
 			{
-				innerHTML = innerHTML+"<div class='"+aItemClass+"'><div class='bigfont round contentitemheader'>"+response.data[venue].name+"</div></div>\n";
+				$("#"+aRootItemId).append(createVenue('round contentitem',response.data[venue]));
 			}
-		
-			$("#"+aRootItemId).html(innerHTML);
 		}
 		else
 		{
 			showNotification(response.message,'bad');
 		}		
 	};
-	requestInterface("VenueInterface","getVenues",undefined,requestVenueListCallback,undefined);
+	requestInterface("VenueInterface","getVenues",{venueid: aVenueId},requestVenueListCallback,undefined);
 }
 
-function requestGigList(aRootItemId, aItemClass, aGetVenues, aGetBands) {
+function requestGigList(aRootItemId, aItemClass) {
 	var requestGigListCallback = function(response) {
 		if (checkResult(response)) 
 		{
-			var innerHTML = "";
+			$("#"+aRootItemId).html("");
 			for (var gig in response.data)
 			{
-				innerHTML = innerHTML+getGigHTML(aRootItemId, aItemClass,response.data[gig]);
+				$("#"+aRootItemId).append(createGig(aItemClass,response.data[gig]));
 			}
-		
-			$("#"+aRootItemId).html(innerHTML);
 		}
 		else
 		{
 			showNotification(response.message,'bad');
 		}		
 	};
-	requestInterface("GigInterface","getGigs",{getVenues: aGetVenues, getBands: aGetBands},requestGigListCallback,undefined);
+	requestInterface("GigInterface","getGigs",undefined,requestGigListCallback,undefined);
 }
 
 function requestGigDetails(aRootItemId, aItemClass, aId) {

@@ -26,6 +26,8 @@
 <script src="scripts/jquery.jgrowl.js" type="text/javascript"></script>
 <script src="scripts/controller.js" type="text/javascript"></script>
 <script src="scripts/functions.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script src="scripts/jquery.ui.map.full.min.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id="everything" class="round fullwidth">
@@ -34,14 +36,17 @@
 			if ($login->isUserLoggedIn() == true) { ?>
 				<div id="navigation" class="round innerfull bigfont">
 					<div class="navigationitem round" id="navigetbands" onClick="requestBandList('content','contentitem round')">Bands</div>
-					<div class="navigationitem round" id="navigetvenues" onClick="requestVenueList('content','contentitem round')">Venues</div>
-					<div class="navigationitem round" id="navigetgigs" onClick="requestGigList('content','contentitem round',true,true)">Gigs</div>
+					<div class="navigationitem round" id="navigetvenues" onClick="requestVenueList('content','contentitem round',null)">Venues</div>
+					<div class="navigationitem round" id="navigetgigs" onClick="requestGigList('content','contentitem round')">Gigs</div>
+					<div class="navigationitem round" id="navigetmap" onClick="createMap('content','contentitem round')">Map</div>
 				</div>
 		<?php } ?>
 		<div id="content" class="innerfull round">
 			<?php		
 				if ($login->isUserLoggedIn() == true) { ?>
-						<script type="text/javascript">showNotification('Logged in','good');</script>
+						<script type="text/javascript">
+							showNotification('Logged in','good');
+						</script>
 				<?php } else {
 						include("views/login.php");
 				}

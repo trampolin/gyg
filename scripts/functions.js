@@ -7,55 +7,140 @@ function checkResult(response) {
 }
 
 // ---------------------------------------
-// HTML for GIGLIST
+// ALLGEMEIN
 
-function getGigSectionHeaderHTML(label) {
-	return "<div class='contentsectionheader'>"+label+"</div>\n"
+function createSectionHeader(label) {
+	var newSectionHeader = document.createElement("div");
+	$(newSectionHeader).attr({
+			'class': 'contentsectionheader'
+	});
+	$(newSectionHeader).text(label);
+	return newSectionHeader;
 }
 
-function getBandInGigHTML(band) {
-  return "<a href='#'><div class='contentitemitem round' id='band-"+band.id+"'>"+band.name+"</div></a>\n";
+function createSection() {
+	var newSection = document.createElement("div");
+	$(newSection).attr({
+			'class': 'contentsection'
+	});
+	return newSection;
 }
 
-function getTbaBandInGigHTML(tbaId) {
-	return "<div class='contentitemitem round' id='band-"+tbaId+"'>TBA</div>\n";
+function createHeader(label) {
+	var newHeader = document.createElement( "div" );
+	$(newHeader).attr({
+			'class': 'contentitemheader bigfont round'
+	});
+	$(newHeader).text(label);
+	return newHeader;
 }
 
-function getGigHeaderHTML(aRootItemId, aItemClass,gig) {
-	var innerHTML = "<div class='contentitemheader bigfont round'>"+gig.gigdate;
+// ---------------------------------------
+// GIGS
+
+function createBandInGig(gig,band) {
+	var newBand = document.createElement('div');
+	$(newBand).attr({
+			'class': 'contentitemitem round',
+			'id':'gig-'+gig.id+'-band-'+band.id
+	});
+	$(newBand).text(band.name);
+	$(newBand).click( function() { requestBand("content","contentitem round",band.id); } );
+
+	return newBand;
+}
+
+function createTbaBandInGig(gig,tbaId) {
+	var newBand = document.createElement('div');
+	$(newBand).attr({
+			'class': 'contentitemitem round',
+			'id':'gig-'+gig.id+'-tba-'+tbaId
+	});
+	$(newBand).text("TBA");
+	return newBand;
+}
+
+function createGig(aItemClass,gig) {
+	var newGig = document.createElement( "div" );
+	$(newGig).attr({
+			'id':'gig-'+gig.id,
+			'class': aItemClass
+	});
+
+	var newHeaderText = gig.gigdate;
 	if (gig.venue != null)
 	{
-		innerHTML +=" "+gig.venue.name;
+		newHeaderText +=" "+gig.venue.name;
 	}
-	innerHTML +="</div>\n";
-	return innerHTML;
-}
 
-function getGigHTML(aRootItemId, aItemClass,gig) {
-
-	clickText = '';//'requestGigDetails(\"gig-'+response.data[gig].id+'\",\"\",'+response.data[gig].id+')';
-	var innerHTML = "<div class='"+aItemClass+"' id='gig-"+gig.id+"'>";
-
-	innerHTML += getGigHeaderHTML(aRootItemId, aItemClass,gig);
+	$(newGig).append(createHeader(newHeaderText));
+	$(newGig).append(createSectionHeader("Bands"));
+	var newSection = createSection();
 	var slots = gig.slots;
-	innerHTML+=getGigSectionHeaderHTML("Bands");
-	innerHTML+="<div class='contentsection'>";
 	for (var band in gig.bands)
 	{
-		innerHTML += getBandInGigHTML(gig.bands[band]);
+		$(newSection).append(createBandInGig(gig,gig.bands[band]));
 		slots--;
 	}
-	innerHTML+="</div>";
-	if (slots > 0) 
+	
+	$(newGig).append(newSection);
+	if (slots > 0 ) 
 	{
-		innerHTML+=getGigSectionHeaderHTML("Freie Slots");
-		innerHTML+="<div class='contentsection'>";
+		$(newGig).append(createSectionHeader("Freie Slots: "+slots));
+		var newSection = createSection();
 		for (var i = 0; i < slots; i++)
 		{
-			innerHTML += getTbaBandInGigHTML(i);
+			$(newSection).append(createTbaBandInGig(gig,i));
 		}
-		innerHTML+="</div>";
+		$(newGig).append(newSection);
 	}
-	innerHTML +="</div>\n";
-	return innerHTML;
+	
+	return newGig;
+}
+
+// ---------------------------------------
+// VENUES
+
+function createVenue(aItemClass,venue) {
+	var newVenue = document.createElement( "div" );
+	$(newVenue).attr({
+			'id':'venue-'+venue.id,
+			'class': aItemClass
+	});
+	$(newVenue).append(createHeader(venue.name));
+	return newVenue;
+}
+
+// ---------------------------------------
+// BANDS
+
+function createBand(aItemClass,band) {
+	var newBand = document.createElement( "div" );
+	$(newBand).attr({
+			'id':'band-'+band.id,
+			'class': aItemClass
+	});
+	$(newBand).append(createHeader(band.name));
+	return newBand;
+}
+
+
+// ---------------------------------------
+// MAP
+
+function createMap(aRootItemId,aItemClass) {
+	$("#"+aRootItemId).html("");
+	var mapContainer = document.createElement( "div" );
+	$(mapContainer).attr({
+			'id':'map',
+			'class': aItemClass
+	});
+	$('#'+aRootItemId).append(mapContainer);
+	$(mapContainer).gmap().bind('init', function(ev, map) {
+		$(mapContainer).gmap('addMarker', {'position': '51.210622,6.830333', 'bounds': true}).click(function() {
+			$(mapContainer).gmap('openInfoWindow', {'content': 'Proberaum'}, this);
+		});
+	});
+	//$('#map_canvas').gmap('refresh');
+	
 }

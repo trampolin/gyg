@@ -8,23 +8,31 @@ class VenueInterface extends BasicInterface {
 		parent::__construct($db);
 	}
 	
-	public function getVenues()
-	{
+	public function getVenue($venueid){
 		$content = array();
-		$q = "SELECT * FROM venues ORDER BY name ASC";
+		$q = "SELECT * FROM venues WHERE venue_id =".$venueid;
 		$result = $this->db->query($q);
-		if ($this->db->get_last_num_rows() > 0) 
+		if ($this->db->get_last_num_rows() > 0)
 		{
 			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 			{
-				$venue = new Venue();		
-				$venue->id = $row['id'];
-				$venue->name = $row['name'];
-				$venue->street = $row['street'];
-				$venue->number = $row['number'];
-				$venue->zip = $row['zip'];
-				$venue->city = $row['city'];
-				$content[] = $venue;				
+				$content[] = Venue::createFromRow($row);				
+			}
+		}
+				
+		return new DataResponse(ResultTypes::resultOK,"",$content);
+	}
+	
+	public function getVenues()
+	{
+		$content = array();
+		$q = "SELECT * FROM venues ORDER BY venue_name ASC";
+		$result = $this->db->query($q);
+		if ($this->db->get_last_num_rows() > 0)
+		{
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			{
+				$content[] = Venue::createFromRow($row);				
 			}
 		}
 				
