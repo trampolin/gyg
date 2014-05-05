@@ -38,7 +38,6 @@ body {
 	border: 1px solid #ccc;
 	overflow: hidden;
 	text-align: center;
-	/*display: table;*/
 }
 
 .navigationitem {
@@ -52,6 +51,7 @@ body {
 
 .navigationitem:hover {
 	background-color: #eee;
+	cursor: pointer;
 }
 
 #content {
@@ -76,18 +76,20 @@ body {
 }
 
 .contentitemitem {
-	width: 138px;
+	/*width: 138px;*/
 	border: 1px solid #ccc;
-	height: 48Px;
-	line-height: 48px;
+	height: 32Px;
+	line-height: 32px;
 	float: left;
 	margin: 10px;
 	background-color: #f8fff8;
 	display: block;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .contentitem  .contentitemitem {
-	width: 134px;
+	/*width: 134px;*/
 }
 
 .contentitemitem:hover{
@@ -158,30 +160,6 @@ div.jGrowl div.good {
 div.jGrowl div.bad {
 	background-color: 		#FFcccc;
 	color: 							navy;
-}
-
-.gridster {
-	border: 1px solid black;
-	background-color: orange;
-}
-
-.gridster ul li {
-	display: block;
-	background-color: green;
-	border: 1px solid black;
-}
-
-#masonry {
-	border: 1px solid black;
-	background-color: yellow;
-}
-
-#masonry .item {
-	background-color: green;
-	border: 1px solid black;
-	width: 134px;
-	height: 64px;
-	margin: 10px;
 }
 
 #map {

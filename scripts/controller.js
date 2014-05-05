@@ -53,12 +53,8 @@ function requestBandList(aRootItemId, aItemClass) {
 			$("#"+aRootItemId).html("");
 			for (var band in response.data)
 			{
-				//clickText = 'requestBand(\"content\",\"\",'+response.data[band].id+')';
-				//innerHTML = innerHTML+"<div class='"+aItemClass+"' id='band-"+response.data[band].id+"' onClick='"+clickText+"'><div class='bigfont round contentitemheader'>"+response.data[band].name+"</div></div>\n";
-				//$('#band-'+response.data[band].id).click(function() { requestBand('#band-'+response.data[band].id,'',response.data[band].id); });
 				$("#"+aRootItemId).append(createBand("round contentitem",response.data[band]));
 			}
-			//$("#"+aRootItemId).html(innerHTML);
 		}
 		else
 		{
@@ -72,13 +68,11 @@ function requestBand(aRootItemId, aItemClass, aBandId) {
 	var requestBandListCallback = function(response) {
 		if (checkResult(response)) 
 		{
-			var innerHTML = "";
+			$("#"+aRootItemId).html("");
 			for (var band in response.data)
 			{
-				//innerHTML = innerHTML+"<div class='"+aItemClass+"'>"+response.data[band].name+"</div>\n";
-				innerHTML = "<div class='"+aItemClass+"'>"+response.data[band].name+' success'+"</div>";
+				$("#"+aRootItemId).append(createBand("round contentitem",response.data[band]));
 			}
-			$("#"+aRootItemId).html(innerHTML);
 		}
 		else
 		{

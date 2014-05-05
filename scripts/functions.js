@@ -121,6 +121,7 @@ function createBand(aItemClass,band) {
 			'class': aItemClass
 	});
 	$(newBand).append(createHeader(band.name));
+	$(newBand).click( function() { requestBand("content","contentitem round",band.id); } );
 	return newBand;
 }
 
