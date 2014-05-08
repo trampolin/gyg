@@ -21,8 +21,12 @@ ContentItemItem.prototype.getDomObject = function() {
 // ContentSection  ---------------------------------------------
 
 function ContentSection(header,items) {
+	this.items = [];
 	this.header = header;
-	this.items = items;
+	if (items != undefined && items != null)
+	{
+		this.items = items;
+	}
 };
 
 ContentSection.prototype.addItem = function(item) {
@@ -55,7 +59,11 @@ ContentSection.prototype.getDomObject = function() {
 // ContentSideBar  ---------------------------------------------
 
 function ContentSidebar(items) {
-	this.items = items;
+	this.items = [];
+	if (items != undefined && items != null)
+	{
+		this.items = items;
+	}
 }
 
 ContentSidebar.prototype.addItem = function(item) {
@@ -74,12 +82,16 @@ ContentSidebar.prototype.getDomObject = function() {
 
 function ContentItem(header,sections,sidebar) {
 	this.header = header;
-	this.sections = sections;
+	this.sections = [];
+	if (sections != undefined && sections != null)
+	{
+		this.sections = sections;
+	}
 	this.sidebar = sidebar;
 }
 
-ContentSidebar.prototype.addSection = function(section) {
-	this.items.push(section);
+ContentItem.prototype.addSection = function(section) {
+	this.sections.push(section);
 }
 
 ContentItem.prototype.getDomObject = function() {
@@ -130,5 +142,10 @@ function CreateTestContent() {
 				)
 		],
 		new ContentSidebar([]));
+	$('#content').append(c.getDomObject());
+	var c = new ContentItem("tes2t2");
+	var cs = new ContentSection("testesc");
+	cs.addItem(new ContentItemItem("bla",null));
+	c.addSection(cs);
 	$('#content').append(c.getDomObject());
 }
