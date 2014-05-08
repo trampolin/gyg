@@ -7,6 +7,10 @@ function checkResult(response) {
 }
 
 // ---------------------------------------
+// CONTENTITEM
+
+
+// ---------------------------------------
 // ALLGEMEIN
 
 function createSectionHeader(label) {
@@ -107,7 +111,24 @@ function createVenue(aItemClass,venue) {
 			'id':'venue-'+venue.id,
 			'class': aItemClass
 	});
-	$(newVenue).append(createHeader(venue.name));
+	
+	var newHeader = createHeader(venue.name);
+	$(newVenue).append(newHeader);
+	
+	// ####################
+	
+	var mapContainer = document.createElement( "div" );
+	$(mapContainer).attr({
+			'id':'venue-'+venue.id+'-map',
+			'class': 'venuemap round'
+	});
+	$(newVenue).append(mapContainer);
+	$(mapContainer).gmap().bind('init', function(ev, map) {
+		//requestVenueMapMarkers(mapContainer);
+	});
+	
+	// ####################
+	
 	return newVenue;
 }
 
@@ -138,10 +159,7 @@ function createMap(aRootItemId,aItemClass) {
 	});
 	$('#'+aRootItemId).append(mapContainer);
 	$(mapContainer).gmap().bind('init', function(ev, map) {
-		$(mapContainer).gmap('addMarker', {'position': '51.210622,6.830333', 'bounds': true}).click(function() {
-			$(mapContainer).gmap('openInfoWindow', {'content': 'Proberaum'}, this);
-		});
+		requestVenueMapMarkers(mapContainer);
 	});
-	//$('#map_canvas').gmap('refresh');
 	
 }

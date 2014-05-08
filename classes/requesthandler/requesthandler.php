@@ -8,6 +8,7 @@ require_once(ROOT_DIR."/classes/interfaces/basicInterface.php");
 require_once(ROOT_DIR."/classes/interfaces/bandInterface.php");
 require_once(ROOT_DIR."/classes/interfaces/venueInterface.php");
 require_once(ROOT_DIR."/classes/interfaces/gigInterface.php");
+require_once(ROOT_DIR."/classes/interfaces/personInterface.php");
 
 function handleRequest() {
 	$request_body = file_get_contents('php://input');

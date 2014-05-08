@@ -26,6 +26,7 @@
 <script src="scripts/jquery.jgrowl.js" type="text/javascript"></script>
 <script src="scripts/controller.js" type="text/javascript"></script>
 <script src="scripts/functions.js" type="text/javascript"></script>
+<script src="scripts/ContentItem.js" type="text/javascript"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="scripts/jquery.ui.map.full.min.js" type="text/javascript"></script>
 </head>
@@ -46,7 +47,24 @@
 				if ($login->isUserLoggedIn() == true) { ?>
 						<script type="text/javascript">
 							showNotification('Logged in','good');
+							CreateTestContent();
 						</script>
+						
+						<!--div class='contentitem round' id="test-content">
+							<div class="contentitemcontent">
+								<div class="contentitemheader bigfont round">Test Content</div>
+								<div class="contentsectionheader">Test Section Header</div>
+								<div class="contentsection">
+									<div class="contentitemitem round">Test 1</div>
+									<div class="contentitemitem round">Test 2</div>
+									<div class="contentitemitem round">Test 3</div>
+								</div>
+							</div>
+							<div class="contentitemsidebar">
+								Sidebar
+							</div>
+						</div-->
+						
 				<?php } else {
 						include("views/login.php");
 				}
