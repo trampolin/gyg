@@ -92,6 +92,13 @@ body {
 	padding-right: 10px;
 }
 
+.contentitemline {
+	clear: both;
+	text-align: left;
+	padding-left: 25px;
+	margin-bottom: 10px;
+}
+
 .contentitem  .contentitemitem {
 	/*width: 134px;*/
 }
@@ -118,6 +125,8 @@ body {
 /*float:right; position:relative; width:140px; margin-right:-140px; display:inline;*/
 	margin-left: 799px;
 	border-left: 1px solid #ccc;
+	padding-top: 10px;
+	/*padding-bottom: 10px;*/
 }
 
 .contentitemsidebar:after{
@@ -129,6 +138,22 @@ body {
 	visibility: hidden;
 }
 
+.contentitemsidebaritem{
+	width: 118px;
+	border: 1px solid #ccc;
+	min-height: 48px;
+	background-color: #f8fff8;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+/*.contentitemsidebaritem:hover{
+	background-color: #f8f8ff;
+	border: 1px solid #f80;
+	cursor: pointer;
+}*/
+
 .contentitemheader{
 	height: 48Px;
 	line-height: 48px;
@@ -138,10 +163,7 @@ body {
 }
 
 .venuemap{
-	width: 128px;
-	height: 128px;
-	border: 1px solid #ccc;
-	float: right;
+	height: 118px;
 }
 
 .contentsectionheader{

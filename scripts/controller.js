@@ -104,7 +104,9 @@ function requestVenueList(aRootItemId, aItemClass, aVenueId) {
 			$("#"+aRootItemId).html("");
 			for (var venue in response.data)
 			{
-				$("#"+aRootItemId).append(createVenue('round contentitem',response.data[venue]));
+				var newVenue = new Venue(response.data[venue]);
+				$("#"+aRootItemId).append(newVenue.getDomObject());
+				newVenue.afterAppend();
 			}
 		}
 		else
@@ -155,7 +157,16 @@ function requestGigList(aRootItemId, aItemClass) {
 			$("#"+aRootItemId).html("");
 			for (var gig in response.data)
 			{
-				$("#"+aRootItemId).append(createGig(aItemClass,response.data[gig]));
+				//$("#"+aRootItemId).append(createGigNew(response.data[gig]).getDomObject());
+				var newGig = new Gig(response.data[gig]);
+				$("#"+aRootItemId).append(newGig.getDomObject());
+				newGig.afterAppend();
+					/*$('#gig-2-map').gmap().bind('init', function(ev, map) {
+						$('#gig-2-map').gmap('addMarker', {'position': 50+','+6, 'bounds': true}).click(function() {
+							$('#gig-2-map').gmap('openInfoWindow', {'content': response.data[venue].name}, this);
+						});
+					});*/
+				
 			}
 		}
 		else

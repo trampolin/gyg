@@ -16,7 +16,7 @@ class VenueInterface extends BasicInterface {
 		{
 			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
 			{
-				$content[] = Venue::createFromRow($row);				
+				$content[] = Venue::createFromRow($row);
 			}
 		}
 				

@@ -26,7 +26,9 @@
 <script src="scripts/jquery.jgrowl.js" type="text/javascript"></script>
 <script src="scripts/controller.js" type="text/javascript"></script>
 <script src="scripts/functions.js" type="text/javascript"></script>
-<script src="scripts/ContentItem.js" type="text/javascript"></script>
+<script src="scripts/classes/ContentItem.js" type="text/javascript"></script>
+<script src="scripts/classes/Gig.js" type="text/javascript"></script>
+<script src="scripts/classes/Venue.js" type="text/javascript"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="scripts/jquery.ui.map.full.min.js" type="text/javascript"></script>
 </head>
@@ -47,23 +49,28 @@
 				if ($login->isUserLoggedIn() == true) { ?>
 						<script type="text/javascript">
 							showNotification('Logged in','good');
-							CreateTestContent();
 						</script>
 						
-						<!--div class='contentitem round' id="test-content">
-							<div class="contentitemcontent">
-								<div class="contentitemheader bigfont round">Test Content</div>
-								<div class="contentsectionheader">Test Section Header</div>
+						<div class="contentitem round" id="gig-3">
+							<div class="contentitemheader bigfont round">2014-06-05 Club1</div>
+							<div class="contentsectioncontainer">
+								<div class="contentsectionheader">Bands: 2 / 4</div>
 								<div class="contentsection">
-									<div class="contentitemitem round">Test 1</div>
-									<div class="contentitemitem round">Test 2</div>
-									<div class="contentitemitem round">Test 3</div>
+									<div class="contentitemitem round" id="gig-3-band-6">Broilers</div>
+									<div class="contentitemitem round" id="gig-3-band-5">Rogers</div>
+									<div class="contentitemline">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et do</div>
+								</div>
+								
+							</div>
+							<div class="contentsectioncontainer">
+								<div class="contentsectionheader">Freie Slots: 2</div>
+								<div class="contentsection">
+									<div class="contentitemitem round" id="">TBA</div>
+									<div class="contentitemitem round" id="">TBA</div>
 								</div>
 							</div>
-							<div class="contentitemsidebar">
-								Sidebar
-							</div>
-						</div-->
+						</div>
+						
 						
 				<?php } else {
 						include("views/login.php");
