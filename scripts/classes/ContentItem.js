@@ -25,6 +25,14 @@ ContentItemItem.prototype.getDomObject = function() {
 	return newItem;
 };
 
+// ContentItemLine
+
+function ContentItemLine(header,onClick,cssId) {
+	this.parent.constructor.call(this,header,onClick,cssId)
+	this.cssClass = "contentitemline";
+}
+ContentItemLine.inheritsFrom(ContentItemItem);
+
 // ContentSection  ---------------------------------------------
 
 function ContentSection(header,items) {
@@ -171,6 +179,34 @@ ContentSidebarMap.prototype.afterAppend = function() {
 	}});
 }
 
+function ContentSidebarButton(cssId,cssClass,text,onClick) {
+	this.text = text;
+	this.cssClass = 'contentitemsidebaritem contentsidebarbutton';
+	if (cssClass != undefined && cssClass != null)
+	{
+		this.cssClass += ' '+cssClass;
+	}
+	this.round = true;
+	if (this.round) { this.cssClass+=" round"; };
+	this.cssId = "";
+	if (cssId != undefined && cssId != null)
+	{
+		this.cssId = cssId;
+	}
+}
+
+ContentSidebarButton.prototype.getDomObject = function() {
+	var newSidebarButton = document.createElement("div");
+	$(newSidebarButton).attr({
+			'class': this.cssClass,
+			'id': this.cssId
+	});
+	$(newSidebarButton).text(this.text);
+	var that = this;
+	$(newSidebarButton).click(function() {that.onClick();} );
+	return newSidebarButton;
+}
+
 // ContentItem  ---------------------------------------------
 
 function ContentItem(header,sections,sidebar,cssId) {
@@ -217,6 +253,10 @@ ContentItem.prototype.getDomObject = function() {
 	$(newSectionHeader).attr({
 			'class': 'contentitemheader bigfont round'
 	});
+	if (this.sidebar != undefined && this.sidebar != null)
+	{
+		$(newSectionHeader).addClass("contentitemheaderplaceholder");
+	}
 	$(newSectionHeader).text(this.header);
 	
 	$(toAdd).append(newSectionHeader);

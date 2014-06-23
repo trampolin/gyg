@@ -1,3 +1,5 @@
+var debug = true;
+
 function requestInterfaceCustomBlock(aInterface,aFunction,aData,aSuccess,aFail,aBlock,aUnblock) {
 	var requestInterfaceFail = function(xhr,status,error) {
 		showNotification(xhr.responseText,'bad');

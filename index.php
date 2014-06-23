@@ -60,7 +60,6 @@
 									<div class="contentitemitem round" id="gig-3-band-5">Rogers</div>
 									<div class="contentitemline">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et do</div>
 								</div>
-								
 							</div>
 							<div class="contentsectioncontainer">
 								<div class="contentsectionheader">Freie Slots: 2</div>
